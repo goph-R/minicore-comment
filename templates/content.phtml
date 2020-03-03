@@ -1,0 +1,22 @@
+<div class="content">
+    <p>
+        <strong><?= esc($comment->getUser()->getName()) ?></strong>
+        <?php if ($comment->getReplyTo()): ?>
+            <span style="color: #bbb; font-size: 0.8rem">
+                <span class="icon"><i class="fas fa-share"></i></span>
+                <?= esc($comment->getReplyToUser()->getName()) ?>
+            </span>
+        <?php endif ?>
+        <br>        
+        <?= esc($comment->getText()) ?></br>
+        <small><a><?= text('comment', 'reply') ?></a>
+        &nbsp;·&nbsp;
+        <?php if ($user->hasPermission($adminPermission)): ?>
+            <a href=""><?= text('comment', 'modify') ?></a>
+            &nbsp;·&nbsp;
+            <a href=""><?= text('comment', 'remove') ?></a>
+            &nbsp;·&nbsp;
+        <?php endif ?>
+        <?= date_diff_view($comment->getCreatedOn()) ?></small>
+    </p>
+</div>
