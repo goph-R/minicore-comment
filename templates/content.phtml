@@ -9,9 +9,9 @@
         <?php endif ?>
         <br>        
         <?= esc($comment->getText()) ?></br>
-        <small><a><?= text('comment', 'reply') ?></a>
+        <small class="comment-actions"><a class="comment-reply-link" data-comment-id="<?= $comment->getId() ?>"><?= text('comment', 'reply') ?></a>
         &nbsp;·&nbsp;
-        <?php if ($user->hasPermission($adminPermission)): ?>
+        <?php if ($hasAdminRight): ?>
             <a href=""><?= text('comment', 'modify') ?></a>
             &nbsp;·&nbsp;
             <a href=""><?= text('comment', 'remove') ?></a>

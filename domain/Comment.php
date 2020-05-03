@@ -22,8 +22,9 @@ class Comment extends Record {
     protected $group_updated_on = '';
     protected $text;
     
-    public function __construct(Framework $framework, $dbInstanceName=null) {
-        parent::__construct($framework, $dbInstanceName);
+    public function __construct($dbInstanceName=null) {
+        parent::__construct($dbInstanceName);
+        $framework = Framework::instance();
         $this->userService = $framework->get('userService');
         $this->comments = $framework->get('comments');
     }
@@ -48,5 +49,5 @@ class Comment extends Record {
     public function getGroupId() {
         return $this->parent_id ? $this->parent_id : $this->id;
     }
-            
+    
 }

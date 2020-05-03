@@ -2,9 +2,6 @@
 
 class Comments {
     
-    /** @var Framework */
-    protected $framework;
-
     /** @var Database */
     protected $db;
     
@@ -14,8 +11,8 @@ class Comments {
     protected $tableName = 'comment';
     protected $recordClass = 'Comment';
 
-    public function __construct(Framework $framework) {
-        $this->framework = $framework;
+    public function __construct() {
+        $framework = Framework::instance();
         $this->db = $framework->get($this->dbInstanceName);
     }
     
@@ -51,5 +48,15 @@ class Comments {
             $this->cache[$r->getId()] = $r;
         }
         return $result;
+    }
+    
+    public function saveGroupUpdatedOn($groupId) {
+        $query = "UPDATE {$this->tableName} SET group_updated_on = :now WHERE parent_id = :parent_id OR id = :id";
+        $params = [ 
+            ':now' => date('Y-m-d H:i:s'),
+            ':parent_id' => $groupId,
+            ':id' => $groupId
+        ];
+        $this->db->query($query, $params);
     }
 }

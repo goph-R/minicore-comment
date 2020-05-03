@@ -2,9 +2,6 @@
 
 class CommentTopics {
 
-    /** @var Framework */
-    protected $framework;
-
     /** @var Database */
     protected $db;
 
@@ -12,8 +9,8 @@ class CommentTopics {
     protected $tableName = 'comment_topic';
     protected $recordClass = 'CommentTopic';
 
-    public function __construct(Framework $framework) {
-        $this->framework = $framework;
+    public function __construct() {
+        $framework = Framework::instance();
         $this->db = $framework->get($this->dbInstanceName);
     }
     
@@ -39,7 +36,8 @@ class CommentTopics {
         if ($topic) {
             return $topic;
         }
-        $topic = $this->framework->create($this->recordClass);
+        $framework = Framework::instance();
+        $topic = $framework->create($this->recordClass);
         $topic->setName($name);
         $topic->setTargetId($targetId);
         try {
